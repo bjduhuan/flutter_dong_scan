@@ -33,7 +33,7 @@
 @implementation SDScanMaskView
 
 - (instancetype)initWithFrame:(CGRect)frame config:(SDScanConfig *)config {
-    
+
     if (self = [super initWithFrame:frame]) {
         self.config = config;
         [self addSubview:self.maskView];
@@ -53,7 +53,7 @@
 #pragma mark - 懒加载
 
 - (UIView *)maskView {
-    
+
     if (_maskView == nil) {
         _maskView = [[UIView alloc] initWithFrame:self.bounds];
         _maskView.backgroundColor = _config.maskColor;
@@ -63,7 +63,7 @@
 }
 
 - (UIBezierPath *)bezier {
-    
+
     if (_bezier == nil) {
         _bezier = [UIBezierPath bezierPathWithRect:self.bounds];
         [_bezier appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(self.centerX - _config.maskRatio * self.width/2.0, self.centerY - _config.maskRatio * self.width/2.0, _config.maskRatio * self.width, _config.maskRatio * self.width)] bezierPathByReversingPath]];
@@ -72,7 +72,7 @@
 }
 
 - (CAShapeLayer *)shapeLayer {
-    
+
     if (_shapeLayer == nil) {
         _shapeLayer = [[CAShapeLayer alloc] init];
         _shapeLayer.path = self.bezier.CGPath;
@@ -81,7 +81,7 @@
 }
 
 - (UIButton *)exitButton {
-    
+
     if (_exitButton == nil) {
         _exitButton = [[UIButton alloc] initWithFrame:CGRectMake(0, StatusHeight, NavigationBarHeight, NavigationBarHeight)];
         [_exitButton addTarget:self action:@selector(exitButtonAction) forControlEvents:UIControlEventTouchUpInside];
@@ -95,19 +95,19 @@
 }
 
 - (UILabel *)titleLabel {
-    
+
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.exitButton.right, self.exitButton.top, KmainWidth - self.exitButton.width * 2, NavigationBarHeight)];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = [UIFont systemFontOfSize:18];
-        _titleLabel.textColor = [UIColor whiteColor];
+        _titleLabel.textColor = [UIColor redColor];
         _titleLabel.text = _config.titleString;
     }
     return _titleLabel;
 }
 
 - (UIImageView *)scanLineImageView {
-    
+
     if (_scanLineImageView == nil) {
         UIImage *scanLineImage = [[SDScanMaskView getBundleImageName:@"sd_scan_line_icon@2x"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         _scanLineImageView = [[UIImageView alloc] initWithImage:scanLineImage];
@@ -118,7 +118,7 @@
 }
 
 - (UIImageView *)topLeftImageView {
-    
+
     if (_topLeftImageView == nil) {
         UIImage *topLeftImage = [[SDScanMaskView getBundleImageName:@"sd_scan_top_left_icon@2x"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         _topLeftImageView = [[UIImageView alloc] initWithImage:topLeftImage];
@@ -129,7 +129,7 @@
 }
 
 - (UIImageView *)topRightImageView {
-    
+
     if (_topRightImageView == nil) {
         UIImage *topRightImage = [[SDScanMaskView getBundleImageName:@"sd_scan_top_right_icon@2x"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         _topRightImageView = [[UIImageView alloc] initWithImage:topRightImage];
@@ -140,10 +140,10 @@
 }
 
 - (UIImageView *)bottomLeftImageView {
-    
+
     if (_bottomLeftImageView == nil) {
         UIImage *bottomLeftImage = [[SDScanMaskView getBundleImageName:@"sd_scan_bottom_left_icon@2x"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        
+
         _bottomLeftImageView = [[UIImageView alloc] initWithImage:bottomLeftImage];
         _bottomLeftImageView.frame = CGRectMake(self.centerX - _config.maskRatio * self.width/2.0, self.centerY + _config.maskRatio * self.width/2.0 - bottomLeftImage.size.height, bottomLeftImage.size.width, bottomLeftImage.size.height);
         _bottomLeftImageView.tintColor = [UIColor hexStringToColor:_config.titeColor];
@@ -152,7 +152,7 @@
 }
 
 - (UIImageView *)bottomRightImageView {
-    
+
     if (_bottomRightImageView == nil) {
         UIImage *bottomRightImage = [[SDScanMaskView getBundleImageName:@"sd_scan_bottom_right_icon@2x"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         _bottomRightImageView = [[UIImageView alloc] initWithImage:bottomRightImage];
@@ -163,7 +163,7 @@
 }
 
 - (UILabel *)hintLabel {
-    
+
     if (_hintLabel == nil) {
         _hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.bottomLeftImageView.bottom + 15.0, KmainWidth, NavigationBarHeight)];
         _hintLabel.textAlignment = NSTextAlignmentCenter;
@@ -179,21 +179,21 @@
 #pragma mark - 相关事件
 
 - (void)setConfig:(SDScanConfig *)config {
-    
+
     _config = config;
     self.titleLabel.text = config.titleString;
     self.hintLabel.text = config.hintString;
 }
 
 - (void)exitButtonAction {
-    
+
     if (self.exitBlock != nil) {
         self.exitBlock();
     }
 }
 
 - (void)startScanLineAnimationAction {
-    
+
     CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"position"];
     animation.duration = 3;
     animation.fillMode = kCAFillModeForwards;
@@ -206,7 +206,7 @@
 }
 
 + (UIImage *)getBundleImageName:(NSString *)imageName {
-    
+
     NSBundle *bundle = [NSBundle bundleForClass:[SDScanMaskView class]];
     NSURL *url = [bundle URLForResource:@"SDScanResource" withExtension:@"bundle"];
     NSBundle *imageBundle = [NSBundle bundleWithURL:url];

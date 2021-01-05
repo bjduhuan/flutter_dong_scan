@@ -100,7 +100,7 @@
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.exitButton.right, self.exitButton.top, KmainWidth - self.exitButton.width * 2, NavigationBarHeight)];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = [UIFont systemFontOfSize:18];
-        _titleLabel.textColor = [UIColor redColor];
+        _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.text = _config.titleString;
     }
     return _titleLabel;

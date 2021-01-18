@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SDScanConfig.h"
 
-@interface SDScanViewController : UIViewController
+@interface SDScanViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 // SDScanViewController 是扫描的主控制器,返回扫描二维码
 

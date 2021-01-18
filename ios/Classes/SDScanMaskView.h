@@ -10,6 +10,7 @@
 #import "SDScanConfig.h"
 
 typedef void(^UserClickExitBlock)(void);
+typedef void(^UserClickAlbumBlock)(void);
 
 @interface SDScanMaskView : UIView
 
@@ -19,5 +20,6 @@ typedef void(^UserClickExitBlock)(void);
 
 /// 用户点击返回按钮的Block
 @property(nonatomic,copy)UserClickExitBlock exitBlock;
+@property(nonatomic,copy)UserClickAlbumBlock albumBlock;
 
 @end

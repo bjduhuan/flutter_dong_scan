@@ -10,7 +10,6 @@
 #import "SDScanHeader.h"
 #import "UIView+Extension.h"
 #import "UIColor+HexStringColor.h"
-
 @interface SDScanMaskView ()
 
 @property(nonatomic,strong)SDScanConfig *config;
@@ -24,10 +23,10 @@
 @property(nonatomic,strong)UIImageView *bottomLeftImageView;
 @property(nonatomic,strong)UIImageView *bottomRightImageView;
 @property(nonatomic,strong)UILabel *hintLabel;
+@property(nonatomic,strong)UILabel *openAlbumLabel;
 
 @property(nonatomic,strong)UIBezierPath *bezier;
 @property(nonatomic,strong)CAShapeLayer *shapeLayer;
-
 @end
 
 @implementation SDScanMaskView
@@ -45,6 +44,7 @@
         [self addSubview:self.bottomRightImageView];
         [self addSubview:self.scanLineImageView];
         [self addSubview:self.hintLabel];
+        [self addSubview:self.openAlbumLabel];
         [self startScanLineAnimationAction];
     }
     return self;
@@ -174,6 +174,29 @@
         _hintLabel.frame = CGRectMake((KmainWidth - hintSize.width)/2.0, self.bottomLeftImageView.bottom + 15.0, hintSize.width, hintSize.height);
     }
     return _hintLabel;
+}
+
+- (UILabel *)openAlbumLabel {
+
+    if (_openAlbumLabel == nil) {
+        _openAlbumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.bottomLeftImageView.bottom + 15.0, KmainWidth, NavigationBarHeight)];
+        _openAlbumLabel.textAlignment = NSTextAlignmentCenter;
+        _openAlbumLabel.font = [UIFont systemFontOfSize:15];
+        _openAlbumLabel.textColor = [UIColor whiteColor];
+        _openAlbumLabel.text = @"从相册选择";
+        CGSize openAlbumSize = [_openAlbumLabel sizeThatFits:CGSizeMake(KmainWidth * _config.maskRatio, 0)];
+        _openAlbumLabel.frame = CGRectMake((KmainWidth - openAlbumSize.width)/2.0, self.hintLabel.bottom + 25.0, openAlbumSize.width, openAlbumSize.height);
+        _openAlbumLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(albumLabelOnClick:)];
+        [_openAlbumLabel addGestureRecognizer:tapGR];
+    }
+    return _openAlbumLabel;
+}
+
+ - (void)albumLabelOnClick:(id)sender{
+ if (self.albumBlock != nil) {
+        self.albumBlock();
+    }
 }
 
 #pragma mark - 相关事件

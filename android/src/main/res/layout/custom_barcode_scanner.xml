@@ -51,6 +51,17 @@
         android:scaleType="fitXY"
         android:src="@drawable/sd_scan_exit_icon"
         />
-
+    <TextView
+        android:id="@+id/scan_view_album"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/zxing_transparent"
+        android:text="相册选取"
+        android:textSize="18sp"
+        android:textColor="@color/zxing_status_text"
+        />
 
 </FrameLayout>

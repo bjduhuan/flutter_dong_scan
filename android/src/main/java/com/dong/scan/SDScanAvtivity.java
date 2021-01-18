@@ -26,6 +26,7 @@ public class SDScanAvtivity extends AppCompatActivity {
     private TextView titleView;
     private ImageButton exitButton;
     private ScanConfig config;
+    private TextView albumView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class SDScanAvtivity extends AppCompatActivity {
         scanFinderView = (SDScanFinderView)barcodeView.getViewFinder();
         scanFinderView.setConfig(config);
         exitButton = (ImageButton)findViewById(R.id.scan_exit_button);
+        albumView = (TextView)findViewById(R.id.scan_view_album);
         if (config.returnStyle == 0) {
             exitButton.setImageResource(R.drawable.sd_scan_exit_icon);
         } else {
@@ -51,9 +53,22 @@ public class SDScanAvtivity extends AppCompatActivity {
                 finish();
             }
         });
+        albumView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAlbum();
+            }
+        });
         captureManager = new SDCaptureManager(this,barcodeView);
         captureManager.initializeFromIntent(getIntent(),savedInstanceState);
         captureManager.decode();
+    }
+
+    //调用相册
+    private void openAlbum(){
+    //     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+    //     intent.setType("image/*");
+    //     startActivityForResult(intent, 0);
     }
 
     @Override
